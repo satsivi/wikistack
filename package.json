@@ -1,0 +1,19 @@
+{
+  "name": "wikistack",
+  "version": "1.0.0",
+  "description": "wikistack workshop for GraceHopper Academy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/satsivi/wikistack.git"
+  },
+  "author": "mimi and gabby",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/satsivi/wikistack/issues"
+  },
+  "homepage": "https://github.com/satsivi/wikistack#readme"
+}
