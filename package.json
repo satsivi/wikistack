@@ -4,7 +4,8 @@
   "description": "wikistack workshop for GraceHopper Academy",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -e html,js,css ./app.js"
   },
   "repository": {
     "type": "git",
