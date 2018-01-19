@@ -15,7 +15,12 @@
   "bugs": {
     "url": "https://github.com/satsivi/wikistack/issues"
   },
-  "homepage": "https://github.com/satsivi/wikistack#readme"
+  "homepage": "https://github.com/satsivi/wikistack#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "morgan": "^1.9.0",
+    "nunjucks": "^3.0.1",
+    "pg": "^7.4.1"
+  }
 }
-
-// Hey Gabby!
