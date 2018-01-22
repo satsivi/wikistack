@@ -36,15 +36,6 @@ router.get('/add', function(req, res, next) {
   res.render('addpage');
 });
 
-router.get('/preview', function(req, res, next){
-  res.render('wikipage', {
-    title: 'Test Title',
-    content: 'some test content',
-    author: 'someone famous',
-    tags: 'apple, banana, pineapple'
-  });
-})
-
 router.get('/:urlTitle', function(req, res, next){
 
   Page.findOne({
@@ -53,7 +44,6 @@ router.get('/:urlTitle', function(req, res, next){
       }
     })
     .then(function(foundPage){
-      console.log(foundPage.dataValues);
       res.render('wikipage', foundPage.dataValues);
     })
     .catch(next);
