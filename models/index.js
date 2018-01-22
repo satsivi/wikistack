@@ -14,7 +14,7 @@ const Page = db.define('page', {
     allowNull: false
   },
   content: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     allowNull: false,
     notEmpty: true
   },
@@ -28,22 +28,19 @@ const Page = db.define('page', {
   route: {
     type: Sequelize.STRING,
     get(){
-      const URL = this.getDataValue('urlTitle');
-      return '/wiki/'+URL;
+      let URL = this.getDataValue('urlTitle');
+      return '/wiki/'+ URL;
     }
   }
 });
 
-Page.hook('beforeValidate', function(title) {
-  console.log('hello world');
-  if (!this.title){
-    this.urlTitle = Math.random().toString(36).substring(2, 12);
+Page.hook('beforeValidate', function(page) {
+  if (!page.title){
+    page.urlTitle = Math.random().toString(36).substring(2, 12);
   }
   else {
-    this.urlTitle = title.replace(/\s+/g, '_').replace(/\W/g, '');
+    page.urlTitle = page.title.replace(/\s+/g, '_').replace(/\W/g, '').toLowerCase();
   }
-  console.log(this.urlTitle);
-  //the equations are working and the function is running evey time we post BUT we cannot 'attach' the url title we generate to the instance of the page
 });
 
 const User = db.define('user', {

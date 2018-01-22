@@ -18,17 +18,61 @@ router.post('/', function(req, res, next) {
     content: req.body.content
   });
   //console.log('this is my page: ', page);
+
   page.save()
-  .then(res.json(page));
+  .then(function(savedPage){
+    res.redirect(savedPage.route);
+  })
+  .catch(next);
 
   //console.log(page);
   //.catch(console.log(err));
 
 });
 
+
+
 router.get('/add', function(req, res, next) {
   res.render('addpage');
 });
 
+router.get('/preview', function(req, res, next){
+  res.render('wikipage', {
+    title: 'Test Title',
+    content: 'some test content',
+    author: 'someone famous',
+    tags: 'apple, banana, pineapple'
+  });
+})
+
+router.get('/:urlTitle', function(req, res, next){
+
+  Page.findOne({
+      where: {
+        urlTitle: req.params.urlTitle
+      }
+    })
+    .then(function(foundPage){
+      console.log(foundPage.dataValues);
+      res.render('wikipage', foundPage.dataValues);
+    })
+    .catch(next);
+
+})
+
+
+// Working code! Don't delete!!
+
+// router.get('/:urlTitle', function (req, res, next) {
+//     Page.findOne({
+//       where: {
+//         urlTitle: req.params.urlTitle
+//       }
+//     })
+//     .then(function(foundPage){
+//       res.json(foundPage);
+//     })
+//     .catch(next);
+// });
 
 module.exports = router;
