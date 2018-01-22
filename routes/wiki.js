@@ -13,52 +13,29 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  //Returns a promise
-  //---- Mimi's WIP code ----
-  // User.findOrCreate({
-  //   where: {
-  //     name: req.body.name,
-  //     email: req.body.email
-  //   }
-  // })
-
-
-  // var page = Page.build({
-  //     title: req.body.title,
-  //     content: req.body.content
-  //   });
-
-  // page.save()
-  //   .then(function (savedPage) {
-  //     res.redirect(savedPage.route);
-  //   })
-  //   .catch(next);
-  // ANSWERS
-  // ---- Feel Free to Delete above this line ----
-
   User.findOrCreate({
     where: {
-      email: req.body.email,
-      name: req.body.author
+      name: req.body.author,
+      email: req.body.email
     }
-  }).then(function(values){
-    var user = values[0];
+  })
+  .then(function(values){
+    let user = values[0]
 
     var page = Page.build({
       title: req.body.title,
-      content: req.body.content,
+      content: req.body.content
     });
 
     return page.save()
-      .then(function (page) {
-        return page.setAuthor(user);
-      })
+      .then(function (savedPage) {
+        return savedPage.setAuthor(user);
+      });
   })
-  .then(function(savedPage){
-    res.redirect(savedPage.route);
+  .then(function(page){
+    res.redirect(page.route);
   })
   .catch(next);
-
 });
 
 

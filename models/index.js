@@ -25,13 +25,19 @@ const Page = db.define('page', {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW
   },
-  route: {
-    type: Sequelize.STRING,
-    get(){
-      let URL = this.getDataValue('urlTitle');
-      return '/wiki/'+ URL;
+  // route: {
+  //   type: Sequelize.STRING,
+  //   get(){
+  //     let URL = this.getDataValue('urlTitle');
+  //     return '/wiki/'+ URL;
+  //   }
+  // }
+}, {
+    getterMethods: {
+      route: function () {
+        return '/wiki/' + this.urlTitle;
+      }
     }
-  }
 });
 
 Page.hook('beforeValidate', function(page) {

@@ -1,7 +1,7 @@
 const express = require('express');
 const models = require('../models');
 const wikiRoutes = require('./wiki.js');
-const userRoutes = require('./user.js');
+const userRoutes = require('./users.js');
 
 const router = express.Router();
 
@@ -18,6 +18,6 @@ router.get('/', function(req, res, next){
 });
 
 router.use('/wiki', wikiRoutes);
-router.use('/user', userRoutes);
+router.use('/users', userRoutes);
 
 module.exports = router;
