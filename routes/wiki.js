@@ -13,8 +13,28 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
+  //Returns a promise
+  //---- Mimi's WIP code ----
+  // User.findOrCreate({
+  //   where: {
+  //     name: req.body.name,
+  //     email: req.body.email
+  //   }
+  // })
 
-  //console.log('this is my page: ', page);
+
+  // var page = Page.build({
+  //     title: req.body.title,
+  //     content: req.body.content
+  //   });
+
+  // page.save()
+  //   .then(function (savedPage) {
+  //     res.redirect(savedPage.route);
+  //   })
+  //   .catch(next);
+  // ANSWERS
+  // ---- Feel Free to Delete above this line ----
 
   User.findOrCreate({
     where: {
