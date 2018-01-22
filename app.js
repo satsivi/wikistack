@@ -3,8 +3,7 @@ const morgan = require('morgan');
 const nunjucks = require('nunjucks');
 const routes = require('./routes');
 const bodyParser = require('body-parser');
-const db = require('./models');
-const {Page, Author} = db.models;
+const models = require('./models');
 
 const app = express();
 
@@ -20,7 +19,7 @@ app.engine('html', nunjucks.render);
 
 app.use('/', routes);
 
-db.models.sync({})
+models.db.sync({force: true})
 .then(function () {
     // make sure to replace the name below with your express app
     app.listen(1234, function () {
@@ -28,7 +27,3 @@ db.models.sync({})
     });
 })
 .catch(console.error);
-
-// app.listen(1234, function () {
-//   console.log('Server is listening on port 1234!');
-// });
