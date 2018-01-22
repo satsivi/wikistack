@@ -1,10 +1,10 @@
 const express = require('express');
-const volleyball = require('morgan');
+const morgan = require('morgan');
 const nunjucks = require('nunjucks');
 const routes = require('./routes');
 const bodyParser = require('body-parser');
-const morgan = require('morgan');
-const models = require('./models');
+const db = require('./models');
+const {Page, Author} = db.models;
 
 const app = express();
 
@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'));
 
-app.use(morgan('tiny'));
+app.use(morgan('dev'));
 
 var env = nunjucks.configure('views', {noCache: true});
 app.set('view engine', 'html');
@@ -20,10 +20,15 @@ app.engine('html', nunjucks.render);
 
 app.use('/', routes);
 
-models.sync()
-  .then(function(){
-    app.listen(1234, function() {
-      console.log('Listening on port 1234');
+db.models.sync({})
+.then(function () {
+    // make sure to replace the name below with your express app
+    app.listen(1234, function () {
+        console.log('Server is listening on port 1234!');
     });
-  })
-  .catch(console.error);
+})
+.catch(console.error);
+
+// app.listen(1234, function () {
+//   console.log('Server is listening on port 1234!');
+// });
