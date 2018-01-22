@@ -13,20 +13,31 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  var page = Page.build({
-    title: req.body.title,
-    content: req.body.content
-  });
+
   //console.log('this is my page: ', page);
 
-  page.save()
+  User.findOrCreate({
+    where: {
+      email: req.body.email,
+      name: req.body.author
+    }
+  }).then(function(values){
+    var user = values[0];
+
+    var page = Page.build({
+      title: req.body.title,
+      content: req.body.content,
+    });
+
+    return page.save()
+      .then(function (page) {
+        return page.setAuthor(user);
+      })
+  })
   .then(function(savedPage){
     res.redirect(savedPage.route);
   })
   .catch(next);
-
-  //console.log(page);
-  //.catch(console.log(err));
 
 });
 
