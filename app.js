@@ -3,16 +3,27 @@ const volleyball = require('morgan');
 const nunjucks = require('nunjucks');
 const routes = require('./routes');
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const models = require('./models');
 
 const app = express();
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static('public'));
+
 app.use(morgan('tiny'));
 
-// ToDo:
-// Configure Nunjucks
-// Routes: router.use(express.static('public'));
-// Create Views Folder + HTML page
-// Make a GET request to "/" that links to index.html
-// First router.get not working
+var env = nunjucks.configure('views', {noCache: true});
+app.set('view engine', 'html');
+app.engine('html', nunjucks.render);
 
-app.listen(1234);
+app.use('/', routes);
+
+models.sync()
+  .then(function(){
+    app.listen(1234, function() {
+      console.log('Listening on port 1234');
+    });
+  })
+  .catch(console.error);
